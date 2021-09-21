@@ -1,0 +1,78 @@
+1. Queries to get tables
+
+SELECT * FROM hobby
+
+SELECT * FROM employee
+
+SELECT * FROM employee_salary
+
+SELECT * FROM employee_hobby
+
+=====================================================================================
+2. Queries for inserting data into tables
+
+INSERT INTO employee (first_name,last_name,age,mobile_number,address)
+VALUES ('Shubham','Patel',23,7046850101,'Chandlodia, Ahmedabad')
+
+INSERT INTO hobby (name)
+VALUES ('Driving'),('Sports')
+
+INSERT INTO employee_hobby (employee_id,hobby_id)
+VALUES (1,5),(1,2),(2,2),(2,3)
+
+INSERT INTO employee_salary (employee_id,salary,date)
+VALUES (1,55000,'2021-08-01),(2,56000,2021-08-01)
+
+=====================================================================================
+3. Querie for Updating records of tables
+
+UPDATE employee
+SET first_name = 'Tommy', last_name = 'Kaur'
+WHERE id = 1;
+
+=====================================================================================
+4. Querie for Deleting records of tables
+
+DELETE FROM employee_salary
+WHERE employee_id = 2;
+
+=====================================================================================
+5. Querie for Truncate tables
+
+TRUNCATE TABLE employee;
+
+=====================================================================================
+6.Select Querie for display all records of table 
+
+SELECT * FROM employee
+
+=====================================================================================
+7.Querie to get employee name and hobby name
+
+SELECT employee.first_name, hobby.name
+FROM employee
+INNER JOIN employee_hobby ON employee_hobby.employee_id = employee.id
+INNER JOIN hobby ON employee_hobby.hobby_id = hobby.id
+
+=====================================================================================
+8.Querie to get employee name and employee salary
+
+SELECT employee.first_name, employee_salary.salary
+FROM employee
+INNER JOIN employee_salary ON employee_salary.employee_id = employee.id
+
+=====================================================================================
+9.Queriey to get only employee name, employee_salary, hobby
+name with comma-separated values.
+
+SELECT employee.first_name, employee_salary.salary
+	, GROUP_CONCAT(hobby.name SEPARATOR ',') AS hobby
+FROM employee
+INNER JOIN employee_hobby ON employee_hobby.employee_id = employee.id
+INNER JOIN hobby ON employee_hobby.hobby_id = hobby.id
+INNER JOIN employee_salary ON employee_salary.employee_id = employee.id
+GROUP BY first_name;
+
+=====================================================================================
+
+
