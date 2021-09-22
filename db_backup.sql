@@ -14,11 +14,7 @@ MySQL - 5.7.35-log : Database - employee
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`employee` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `employee`;
-
 /*Table structure for table `employee` */
-
-DROP TABLE IF EXISTS `employee`;
 
 CREATE TABLE `employee` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
@@ -41,53 +37,51 @@ insert  into `employee`(`id`,`first_name`,`last_name`,`age`,`mobile_number`,`add
 
 /*Table structure for table `employee_hobby` */
 
-DROP TABLE IF EXISTS `employee_hobby`;
-
 CREATE TABLE `employee_hobby` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(5) NOT NULL,
-  `hobby_id` int(5) NOT NULL,
+  `fk_employee_id` int(5) NOT NULL,
+  `fk_hobby_id` int(5) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `employee_id` (`employee_id`),
-  KEY `hobby_id` (`hobby_id`),
-  CONSTRAINT `employee_hobby_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
-  CONSTRAINT `employee_hobby_ibfk_2` FOREIGN KEY (`hobby_id`) REFERENCES `hobby` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  KEY `employee_id` (`fk_employee_id`),
+  KEY `hobby_id` (`fk_hobby_id`),
+  CONSTRAINT `employee_hobby_ibfk_1` FOREIGN KEY (`fk_employee_id`) REFERENCES `employee` (`id`),
+  CONSTRAINT `employee_hobby_ibfk_2` FOREIGN KEY (`fk_hobby_id`) REFERENCES `hobby` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `employee_hobby` */
 
-insert  into `employee_hobby`(`id`,`employee_id`,`hobby_id`) values 
+insert  into `employee_hobby`(`id`,`fk_employee_id`,`fk_hobby_id`) values 
 (1,1,3),
 (2,1,1),
 (3,2,6),
-(4,2,7);
+(4,2,7),
+(5,3,4),
+(6,4,4);
 
 /*Table structure for table `employee_salary` */
 
-DROP TABLE IF EXISTS `employee_salary`;
-
 CREATE TABLE `employee_salary` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(5) NOT NULL,
+  `fk_employee_id` int(5) NOT NULL,
   `salary` int(10) NOT NULL,
   `date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `employee_id` (`employee_id`),
-  CONSTRAINT `employee_salary_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  KEY `employee_id` (`fk_employee_id`),
+  CONSTRAINT `employee_salary_ibfk_1` FOREIGN KEY (`fk_employee_id`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `employee_salary` */
 
-insert  into `employee_salary`(`id`,`employee_id`,`salary`,`date`) values 
+insert  into `employee_salary`(`id`,`fk_employee_id`,`salary`,`date`) values 
 (1,1,50000,'2021-09-20'),
 (2,2,40000,'2021-09-20'),
 (3,3,30000,'2021-09-20'),
 (4,4,20000,'2021-09-20'),
-(5,5,10000,NULL);
+(6,1,10000,'2021-09-21'),
+(7,1,10000,'2021-09-21'),
+(8,3,10000,'2021-09-21');
 
 /*Table structure for table `hobby` */
-
-DROP TABLE IF EXISTS `hobby`;
 
 CREATE TABLE `hobby` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
