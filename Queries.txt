@@ -49,7 +49,7 @@ SELECT * FROM employee
 =====================================================================================
 7.Querie to get employee name and hobby name
 
-SELECT employee.first_name, hobby.name
+SELECT employee.first_name AS 'First name', hobby.name AS 'Hobby'
 FROM employee
 INNER JOIN employee_hobby ON employee_hobby.employee_id = employee.id
 INNER JOIN hobby ON employee_hobby.hobby_id = hobby.id
@@ -57,22 +57,21 @@ INNER JOIN hobby ON employee_hobby.hobby_id = hobby.id
 =====================================================================================
 8.Querie to get employee name and employee salary
 
-SELECT employee.first_name, employee_salary.salary
-FROM employee
+SELECT employee.first_name AS 'First name', employee_salary.salary AS'Total salary'
+FROM employee 
 INNER JOIN employee_salary ON employee_salary.employee_id = employee.id
 
 =====================================================================================
 9.Queriey to get only employee name, employee_salary, hobby
 name with comma-separated values.
 
-SELECT employee.first_name, employee_salary.salary
-	, GROUP_CONCAT(hobby.name SEPARATOR ',') AS hobby
+SELECT employee.first_name AS 'First name', 
+	SUM(employee_salary.salary) AS Salary,
+	(SELECT GROUP_CONCAT(hobby.name) FROM employee_hobby  
+	INNER JOIN hobby ON employee_hobby.hobby_id = hobby.id
+	WHERE employee_hobby.employee_id = employee.id) AS Hobby
 FROM employee
-INNER JOIN employee_hobby ON employee_hobby.employee_id = employee.id
-INNER JOIN hobby ON employee_hobby.hobby_id = hobby.id
 INNER JOIN employee_salary ON employee_salary.employee_id = employee.id
-GROUP BY first_name;
+GROUP BY employee.id;
 
 =====================================================================================
-
-
